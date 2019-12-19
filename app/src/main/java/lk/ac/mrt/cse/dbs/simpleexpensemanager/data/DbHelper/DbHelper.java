@@ -64,7 +64,11 @@ public  class DbHelper extends SQLiteOpenHelper {
         contentValues.put("bankName",account.getBankName());
         contentValues.put("accountHolderName",account.getAccountHolderName());
         contentValues.put("balance",account.getBalance());
+        System.out.println(account.getAccountHolderName());
+        System.out.println(contentValues);
         a = db.insert("account",null,contentValues);
+//        db.rawQuery("INSERT INTO account(accountNo,bankName,accountHolderName,balance) VALUES (?,?,?,?)",new String[]{account.getAccountNo(),account.getBankName(),account.getAccountHolderName(),String.valueOf(account.getBalance())});
+
     }
     return a;
 
@@ -81,6 +85,7 @@ public  class DbHelper extends SQLiteOpenHelper {
             contentValues.put("balance",account.getBalance());
             db.insert("account",null,contentValues);
         }
+
     }
 
 
@@ -93,7 +98,6 @@ public  class DbHelper extends SQLiteOpenHelper {
     }
     public ArrayList<Account> selectAllAccount()
     {
-
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from account",null);
         int count = res.getCount();

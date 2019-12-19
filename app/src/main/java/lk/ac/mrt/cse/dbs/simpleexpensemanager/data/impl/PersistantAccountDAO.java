@@ -15,16 +15,16 @@ public class PersistantAccountDAO implements AccountDAO {
 
     DbHelper db;
 
-    PersistantAccountDAO(Context context)
+    public PersistantAccountDAO(DbHelper dbHelper)
     {
-        db = new DbHelper(context);
+        this.db = dbHelper;
     }
 
     @Override
     public List<String> getAccountNumbersList() {
+        System.out.println("11111111111111111111111");
 
         List<String> list = new ArrayList<>();
-        list = null;
           ArrayList<Account> accounts =   db.selectAllAccount();
           for(Account acc:accounts)
           {
@@ -42,6 +42,7 @@ public class PersistantAccountDAO implements AccountDAO {
 
     @Override
     public List<Account> getAccountsList() {
+        System.out.println("222222222222222222222222");
         ArrayList<Account> accounts =   db.selectAllAccount();
 
 
@@ -63,6 +64,10 @@ public class PersistantAccountDAO implements AccountDAO {
 
     @Override
     public void addAccount(Account account) {
+        System.out.println(account.getAccountHolderName());
+                System.out.println(account.getAccountNo());
+                        System.out.println(account.getBalance());
+        System.out.println(account);
 
         long a  = db.insertAccount(account);
         if(a==-1) {
@@ -83,6 +88,7 @@ public class PersistantAccountDAO implements AccountDAO {
 
     @Override
     public void updateBalance(String accountNo, ExpenseType expenseType, double amount) throws InvalidAccountException {
+
 
 //        db.updateAccount(accountNo, expenseType,  amount);
 

@@ -9,7 +9,7 @@ public class DabDetails {
     public static class AccountsTable implements BaseColumns{
         public static final String accountNo = "accountNo";
         public static final String bankName = "bankName";
-        public static final String accountHolderName = "accountHolderName";
+        public static final String accountHolderName = "accountHolderNames";
         public static final String balance = "balance";
     }
 

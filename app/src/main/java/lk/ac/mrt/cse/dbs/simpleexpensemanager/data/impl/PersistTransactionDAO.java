@@ -2,6 +2,7 @@ package lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +16,9 @@ public class PersistTransactionDAO implements TransactionDAO {
 
     DbHelper db;
 
-    PersistTransactionDAO(Context context)
+    public  PersistTransactionDAO(DbHelper dbHelper)
     {
-        db = new DbHelper(context);
+        db = dbHelper;
     }
 
 
@@ -33,6 +34,17 @@ public class PersistTransactionDAO implements TransactionDAO {
 
     @Override
     public List<Transaction> getPaginatedTransactionLogs(int limit) {
-        return null;
+//        System.out.println("getPaginatedTransactionLogsgetPaginatedTransactionLogsgetPaginatedTransactionLogsgetPaginatedTransactionLogsgetPaginatedTransactionLogsgetPaginatedTransactionLogs");
+//        ArrayList<Transaction> transactions = db.selectAllTransactions();
+//
+//        int size = transactions.size();
+//        if (size <= limit) {
+//            return transactions;
+//        }
+//        // return the last <code>limit</code> number of transaction logs
+//        return transactions.subList(size - limit, size);
+        return db.selectAllTransactions();
+
+
     }
 }
