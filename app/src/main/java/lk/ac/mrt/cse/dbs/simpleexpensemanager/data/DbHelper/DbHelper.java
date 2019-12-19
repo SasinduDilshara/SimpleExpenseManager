@@ -82,6 +82,10 @@ public  class DbHelper extends SQLiteOpenHelper {
             db.insert("account",null,contentValues);
         }
     }
+
+
+
+
     public boolean deleteAccount(String id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -190,8 +194,44 @@ public  class DbHelper extends SQLiteOpenHelper {
             return arr;
         }
     }
-    public void deleteTransaction(String id)
+    public List<Transaction> getPaginatedTransactionLogs(int limit)
     {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ArrayList<Transaction> list = new ArrayList<>();
+//        ArrayList<int> num = new ArrayList<>();
+        list = this.selectAllTransactions();
+        if(limit == 0)
+        {
+            return list;
+        }
+        else
+        {
+//            limit = limit.to
+//            num.add(limit);
+            Cursor res = db.rawQuery("select * from userTransaction limit  ?",new String[]{String.valueOf(limit)});
+
+
+            while(res.moveToNext())
+            {
+                String date = res.getString(0);
+                String accountNum = res.getString(1);
+                String expensesType = res.getString(2);
+                double amount = res.getDouble(3);
+                ExpenseType type = ExpenseType.valueOf(expensesType);
+                Date date_ = null;
+                try {
+                    date_ = sdfr.parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                ArrayList<Transaction> list_ = new ArrayList<>();
+                list_.add( new Transaction(date_,accountNum,type,amount));
+
+            }
+            return list;
+
+        }
 
     }
     public Transaction selectTransaction(String id)

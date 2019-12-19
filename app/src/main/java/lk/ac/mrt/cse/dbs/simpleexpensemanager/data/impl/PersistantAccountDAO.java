@@ -73,12 +73,18 @@ public class PersistantAccountDAO implements AccountDAO {
 
     @Override
     public void removeAccount(String accountNo) throws InvalidAccountException {
-        
+        boolean a =db.deleteAccount(accountNo);
+        if(!a)
+        {
+            System.out.println("Delete not happen in account");
+        }
 
     }
 
     @Override
     public void updateBalance(String accountNo, ExpenseType expenseType, double amount) throws InvalidAccountException {
+
+//        db.updateAccount(accountNo, expenseType,  amount);
 
     }
 }
