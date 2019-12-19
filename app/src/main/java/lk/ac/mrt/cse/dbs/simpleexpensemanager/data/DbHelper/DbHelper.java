@@ -54,9 +54,9 @@ public  class DbHelper extends SQLiteOpenHelper {
     }
 
 
-    public void insertAccount(Account account)
+    public long insertAccount(Account account)
     {
-
+    long a =-1;
     if(account.getAccountNo()!= null) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -64,8 +64,9 @@ public  class DbHelper extends SQLiteOpenHelper {
         contentValues.put("bankName",account.getBankName());
         contentValues.put("accountHolderName",account.getAccountHolderName());
         contentValues.put("balance",account.getBalance());
-        db.insert("account",null,contentValues);
+        a = db.insert("account",null,contentValues);
     }
+    return a;
 
 
     }
