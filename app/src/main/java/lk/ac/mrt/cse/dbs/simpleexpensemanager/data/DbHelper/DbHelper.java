@@ -61,21 +61,30 @@ public  class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("accountNo",account.getAccountNo());
-        contentValues.put("accountNo",account.getBankName());
-        contentValues.put("accountNo",account.getAccountHolderName());
-        contentValues.put("accountNo",account.getBalance());
+        contentValues.put("bankName",account.getBankName());
+        contentValues.put("accountHolderName",account.getAccountHolderName());
+        contentValues.put("balance",account.getBalance());
         db.insert("account",null,contentValues);
-    }    
+    }
 
 
     }
     public void updateAccount(Account account)
     {
-
+        if(account.getAccountNo()!= null) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("accountNo",account.getAccountNo());
+            contentValues.put("bankName",account.getBankName());
+            contentValues.put("accountHolderName",account.getAccountHolderName());
+            contentValues.put("balance",account.getBalance());
+            db.insert("account",null,contentValues);
+        }
     }
-    public void deleteAccount(String id)
+    public boolean deleteAccount(String id)
     {
-
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("account","accountNo ="+id,null)>0;
     }
     public ArrayList<Account> selectAllAccount()
     {
@@ -132,10 +141,18 @@ public  class DbHelper extends SQLiteOpenHelper {
     }
 
 
-    public void insertTransaction(Account account)
+    public void insertTransaction(Transaction transaction)
     {
 
-
+        if(transaction.getAccountNo()!= null) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("date",sdfr.format( transaction.getDate() ));
+            contentValues.put("accountNo",transaction.getAccountNo());
+            contentValues.put("expensesType",transaction.getExpenseType().toString());
+            contentValues.put("amount",transaction.getAmount());
+            db.insert("userTransaction",null,contentValues);
+        }
 
     }
     public ArrayList<Transaction> selectAllTransactions()
