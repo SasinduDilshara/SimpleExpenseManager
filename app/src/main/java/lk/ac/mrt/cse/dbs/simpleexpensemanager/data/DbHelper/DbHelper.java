@@ -16,6 +16,7 @@ public abstract class DbHelper extends SQLiteOpenHelper {
 
     public DbHelper(Context context) {
         super(context, DabDetails.db , null, 1);
+        SQLiteDatabase db = this.getWritableDatabase();
     }
 
     @Override
@@ -23,11 +24,13 @@ public abstract class DbHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE account (" + DabDetails.AccountsTable.accountNo + " TEXT PRIMARY KEY, "
                 + DabDetails.AccountsTable.bankName + " TEXT" + DabDetails.AccountsTable.accountHolderName + "Text,"
                 + DabDetails.AccountsTable.balance + " REAL" + " )");
-        db.execSQL("CREATE TABLE userTransaction(" + DabDetails.TransactionsTable.date + " INT, "
-                + "FOREIGN KEY (" + DabDetails.TransactionsTable.accountNo + ") REFERENCES account(" + DabDetails.AccountsTable.accountNo +"),"
-                + DabDetails.TransactionsTable.expenseType+" " +"Text,"
-                + DabDetails.TransactionsTable.amount + " REAL" + ")");
+        db.execSQL("CREATE TABLE userTransaction(" + DabDetails.TransactionsTable.date + " TEXT, "
+                + DabDetails.TransactionsTable.accountNo + " Text, "
+                + DabDetails.TransactionsTable.expenseType+" Text,"
+                + DabDetails.TransactionsTable.amount + " REAL, Foreign key (accountNo) references account(accountNo))"
+        );
     }
+    //                "FOREIGN KEY REFERENCES account(" + DabDetails.AccountsTable.accountNo +"),"
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -35,6 +38,9 @@ public abstract class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS userTransaction");
         onCreate(db);
     }
+
+
+    
 
 
 }
